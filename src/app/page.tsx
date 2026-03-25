@@ -1,5 +1,8 @@
 "use client";
 
+//import useMutation for doing things like creating or deleting. This useMutaion is use for
+//modifying things in convex
+//useQuery is used for fetching
 import { useMutation, useQuery } from "convex/react";
 import { api } from "../../convex/_generated/api";
 import { Button } from "@/components/ui/button";
