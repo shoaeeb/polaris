@@ -17,7 +17,7 @@ export default function DemoPage() {
 
   const handleBackground = async () => {
     setLoading1(true);
-    await fetch("api/demo/background", {
+    await fetch("/api/demo/background", {
       method: "POST",
     });
     setLoading1(false);
