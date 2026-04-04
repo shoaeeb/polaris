@@ -24,8 +24,12 @@ const URL_REGEX =
 
 //this is the second version
 export const demoGenerate = inngest.createFunction(
-  { id: "demo-generate" },
-  { event: "demo/generate" },
+  {
+    id: "demo-generate",
+    triggers: {
+      event: "demo/generate",
+    },
+  },
   async ({ event, step }) => {
     //extract prompt from event;
     //event.data type will have prompt field which will be a string
@@ -63,7 +67,22 @@ export const demoGenerate = inngest.createFunction(
       return await generateText({
         model: google("gemini-2.5-flash"),
         prompt: finalPrompt,
+        experimental_telemetry: {
+          isEnabled: true,
+          recordInputs: true,
+          recordOutputs: true,
+        },
       });
+    });
+  }
+);
+
+//simulate error
+export const demoError = inngest.createFunction(
+  { id: "demo-error", triggers: { event: "demo/error" } },
+  async ({ step }) => {
+    await step.run("fail", async () => {
+      throw new Error("Inngest error: Background job failed");
     });
   }
 );
